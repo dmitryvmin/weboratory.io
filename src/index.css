@@ -18,3 +18,21 @@ h1, h2, h3, h4, h5, h6 {
 p {
   font-family: 'Lato', sans-serif;
 }
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  margin: 2em 0 2em 4em
+}
+
+.item {
+  /*background-color: salmon;*/
+  /*border-radius: 10px;*/
+  margin: 2em;
+  display: inline-block;
+  cursor: pointer;
+  /*position: static;*/
+}

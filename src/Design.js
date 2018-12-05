@@ -62,7 +62,7 @@ class Design extends Component {
     return (
       <div>
 
-        <h1>UX / Design</h1>
+        {/*<h1>UX / Design</h1>*/}
 
         <div>
           <Card style={styles.card}>   
@@ -92,7 +92,7 @@ class Design extends Component {
           <CardContent style={styles.cardContent}>
             <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <div style={styles.heading}><h2>Prototyping</h2></div>
+                <div style={styles.heading}><h2>UX & Prototyping</h2></div>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
 

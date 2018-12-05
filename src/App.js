@@ -5,8 +5,10 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
+import posed from 'react-pose';
 
 import Design from './Design';
+import Dev from './Dev';
 
 function TabContainer(props) {
     return (
@@ -32,50 +34,102 @@ const StyledTab = styled(Tab)`
     color: black !important; 
 `;
 
+const navArr = ['Design', 'Development', 'About', 'Blog', 'Contact'];
+
+
+const Box = posed.div({
+    active: {
+        // position: 'absolute',
+        scale: 2,
+        y: 10,
+        fontWeight: 700,
+        transition: { duration: 300, ease: 'easeOut', },
+        transform: 'translateX(50%)'
+    },
+    inactive: {
+        scale: 1,
+        fontWeight: 300,
+        y: 0,
+        // x: ({ i }) => {
+        //     return(i * 100)
+        // },
+        transition: { duration: 300, ease: 'easeOut', }
+    }
+});
+
+
 class App extends Component {
     state = {
-        value: 1,
-        activePage: 'home'
+        activePage: 'Design'
     };
 
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
+    handleClick = item => e => {
+        this.setState({ activePage: item });
+    }
+
+
     render() {
-        const { value } = this.state;
+        const { activePage } = this.state;
+
+        let order = [0,1,2];
 
         return(
             <div className="App">
 
-                <div style={{position: 'absolute', top: '13px', left: '4em'}}>weboratory</div>
+                <div className="navigation">
+                    <div className="logo" style={{fontWeight: 800}}>weboratory</div>
 
 
 
-                <div style={{width: '400px', margin: '0 auto'}}>
+                    <div style={{height: '80px', marginRight: '4em'}}>
+                        {navArr.map((page, index) => {
 
-                    <span className="item">Home</span>
-                    <span className="item">Design</span>
-                    <span className="item">Development</span>
-                    <span className="item">Blog</span>
+                            let active = (activePage === page) ? true : false;
 
+                            let i = !active ? order.shift() : null;
+
+                            return(
+                                <Box onClick={this.handleClick(page)}
+                                     i={i}
+                                     className="item"
+                                     key={`${page}${index}`}
+                                     pose={active ? 'active' : 'inactive'}>{page}</Box>
+
+                            )
+                        })}
+                    </div>
                 </div>
 
 
 
 
 
-                <AppBar position="static" style={{backgroundColor: '#f3f7f9', boxShadow: 'none'}}>
-                    <StyledTabs value={value} onChange={this.handleChange}>
-                        <StyledTab label="development" />
-                        <StyledTab label="design" />
-                        {/*<StyledTab label="marketing" />*/}
-                    </StyledTabs>
-                </AppBar>
+                {/*<AppBar position="static" style={{backgroundColor: '#f3f7f9', boxShadow: 'none'}}>*/}
+                    {/*<StyledTabs value={value} onChange={this.handleChange}>*/}
+                        {/*<StyledTab label="development" />*/}
+                        {/*<StyledTab label="design" />*/}
+                        {/*/!*<StyledTab label="marketing" />*!/*/}
+                    {/*</StyledTabs>*/}
+                {/*</AppBar>*/}
 
-                {value === 0 && <TabContainer>// in progress</TabContainer>}
-                {value === 1 && <TabContainer>
+                {activePage === 'Development' && <TabContainer>
+                    <Dev />
+                </TabContainer>}
+                {activePage === 'Design' && <TabContainer>
                     <Design />
+                </TabContainer>}
+                {activePage === 'About' && <TabContainer>
+                    <p>// Coming soon</p>
+                </TabContainer>}
+                {activePage === 'Blog' && <TabContainer>
+                    <p>// Coming soon</p>
+                </TabContainer>}
+                {activePage === 'Contact' && <TabContainer>
+                    <p>// Coming soon</p>
                 </TabContainer>}
                 {/*{value === 2 && <TabContainer>// in progress</TabContainer>}*/}
 
